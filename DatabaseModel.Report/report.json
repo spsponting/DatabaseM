@@ -1,0 +1,95 @@
+{
+  "config": "{\"version\":\"5.49\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY23SU11\",\"version\":\"5.50\",\"type\":2},\"customTheme\":{\"name\":\"StirlingsPS5554379176824282.json\",\"version\":\"5.50\",\"type\":1}},\"activeSectionIndex\":1,\"defaultDrillFilterOtherVisuals\":true,\"filterSortOrder\":3,\"slowDataSourceSettings\":{\"isCrossHighlightingDisabled\":false,\"isSlicerSelectionsButtonEnabled\":false,\"isFilterSelectionsButtonEnabled\":false,\"isFieldWellButtonEnabled\":false,\"isApplyAllButtonEnabled\":true},\"linguisticSchemaSyncVersion\":2,\"settings\":{\"isPersistentUserStateDisabled\":true,\"hideVisualContainerHeader\":true,\"useStylableVisualContainerHeader\":false,\"exportDataMode\":1,\"useNewFilterPaneExperience\":true,\"optOutNewFilterPaneExperience\":false,\"defaultFilterActionIsDataFilter\":false,\"useCrossReportDrillthrough\":false,\"allowChangeFilterTypes\":false,\"allowInlineExploration\":false,\"disableFilterPaneSearch\":true,\"enableDeveloperMode\":false,\"useEnhancedTooltips\":true,\"useScaledTooltips\":true,\"useDefaultAggregateDisplayName\":true,\"queryLimitOption\":6,\"customMemoryLimit\":\"1048576\",\"customTimeoutLimit\":\"225\"},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "filters": "[]",
+  "layoutOptimization": 0,
+  "pods": [
+    {
+      "boundSection": "7c02c6e4aa49d8f9a938",
+      "config": "{}",
+      "name": "0f6ecedfc7cc7b836a36"
+    },
+    {
+      "boundSection": "ReportSection61ceb8425c335710ad88",
+      "config": "{}",
+      "name": "Pod"
+    }
+  ],
+  "publicCustomVisuals": [
+    "Datepicker_1687358625",
+    "powerKPI462CE5C2666F4EC8A8BDD7E5587320A3"
+  ],
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY23SU11",
+            "path": "BaseThemes/CY23SU11.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    },
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "StirlingsPS5554379176824282.json",
+            "path": "StirlingsPS5554379176824282.json",
+            "type": 100
+          }
+        ],
+        "name": "RegisteredResources",
+        "type": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "Duplicate of Page 1",
+      "displayOption": 3,
+      "filters": "[]",
+      "height": 1080.00,
+      "name": "7c02c6e4aa49d8f9a938",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"5801abf061838db4e62b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":0,\"z\":0,\"width\":631,\"height\":280,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"BDMORDERARCHIVE (2).OrderNumber\"},{\"queryRef\":\"BDMORDERARCHIVE (2).processingdate\"},{\"queryRef\":\"Date (2).PreviousWorkDay\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"b\",\"Entity\":\"BDMORDERARCHIVE (2)\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Date (2)\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"OrderNumber\"},\"Name\":\"BDMORDERARCHIVE (2).OrderNumber\",\"NativeReferenceName\":\"OrderNumber\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"processingdate\"},\"Name\":\"BDMORDERARCHIVE (2).processingdate\",\"NativeReferenceName\":\"processingdate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"PreviousWorkDay\"},\"Name\":\"Date (2).PreviousWorkDay\",\"NativeReferenceName\":\"PreviousWorkDay\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"PreviousWorkDay\"}}}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 280.00,
+          "width": 631.00,
+          "x": 10.00,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1920.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 3,
+      "filters": "[]",
+      "height": 1080.00,
+      "name": "ReportSection61ceb8425c335710ad88",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"7c2ede49ed8e5270a061\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":1015.7142857142858,\"height\":1080,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"sales_order.OrderNumber\"},{\"queryRef\":\"sales_order.Warehouse\"},{\"queryRef\":\"sales_order.CustomerCode\"},{\"queryRef\":\"sales_order.orderdate\"},{\"queryRef\":\"sales_order.deliverydate\"},{\"queryRef\":\"sales_order.PrintDateTime\"},{\"queryRef\":\"StatusTimes.HoursOnStatus60\"},{\"queryRef\":\"sales_order.SalesUser\"},{\"queryRef\":\"Sum(sales_order.TotalAmount)\"},{\"queryRef\":\"Sum(sales_order.GP%)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"sales_order\",\"Type\":0},{\"Name\":\"s1\",\"Entity\":\"StatusTimes\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"OrderNumber\"},\"Name\":\"sales_order.OrderNumber\",\"NativeReferenceName\":\"OrderNumber\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Warehouse\"},\"Name\":\"sales_order.Warehouse\",\"NativeReferenceName\":\"Warehouse\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"CustomerCode\"},\"Name\":\"sales_order.CustomerCode\",\"NativeReferenceName\":\"CustomerCode\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"orderdate\"},\"Name\":\"sales_order.orderdate\",\"NativeReferenceName\":\"orderdate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"deliverydate\"},\"Name\":\"sales_order.deliverydate\",\"NativeReferenceName\":\"deliverydate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"PrintDateTime\"},\"Name\":\"sales_order.PrintDateTime\",\"NativeReferenceName\":\"PrintDateTime\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s1\"}},\"Property\":\"HoursOnStatus60\"},\"Name\":\"StatusTimes.HoursOnStatus60\",\"NativeReferenceName\":\"HoursOnStatus60\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"SalesUser\"},\"Name\":\"sales_order.SalesUser\",\"NativeReferenceName\":\"SalesUser\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"TotalAmount\"},\"Name\":\"Sum(sales_order.TotalAmount)\",\"NativeReferenceName\":\"TotalAmount\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"GP%\"},\"Name\":\"Sum(sales_order.GP%)\",\"NativeReferenceName\":\"GP%\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[{\"name\":\"Filter2e4964e85bafa49149cb\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"sales_order\"}},\"Property\":\"OrderStatus\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"sales_order\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"OrderStatus\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'60'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}}]",
+          "height": 1080.00,
+          "width": 1015.71,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1920.00
+    }
+  ],
+  "theme": "StirlingsPS5554379176824282.json"
+}

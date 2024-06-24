@@ -1,0 +1,17 @@
+Customer_Measure_Table = 
+SUMMARIZE(
+    'sales_order_archive',
+    'sales_order_archive'[CustomerCode],
+    "TotalAmount_Jan", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 1),
+    "TotalAmount_Feb", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 2),
+    "TotalAmount_Mar", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 3),
+    "TotalAmount_Apr", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 4),
+    "TotalAmount_May", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 5),
+    "TotalAmount_Jun", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 6),
+    "TotalAmount_Jul", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 7),
+    "TotalAmount_Aug", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 8),
+    "TotalAmount_Sep", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 9),
+    "TotalAmount_Oct", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 10),
+    "TotalAmount_Nov", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 11),
+    "TotalAmount_Dec", CALCULATE(SUM('sales_order_archive'[TotalAmount]), MONTH('sales_order_archive'[ProcessingDate]) = 12)
+)
