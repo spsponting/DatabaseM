@@ -62685,6 +62685,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -63012,6 +63016,42 @@
             "lineageTag": "05b4aefe-cfd8-47e0-b216-fd5bf187a600",
             "sourceColumn": "StockLink",
             "summarizeBy": "none"
+          },
+          {
+            "name": "UnitWeight",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "4a79f969-5476-4f85-beb0-ff3a557aac58",
+            "sourceColumn": "UnitWeight",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "LineWeight",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "DataType"
+              }
+            ],
+            "dataType": "double",
+            "formatString": "0.00",
+            "lineageTag": "a1facd5d-2e38-4dac-90e8-3e10f471ca8a",
+            "sourceColumn": "LineWeight",
+            "summarizeBy": "sum"
           }
         ],
         "lineageTag": "b78927cd-e835-4a92-8599-2ce182478626",
@@ -63069,9 +63109,13 @@
                 "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Expanded sales_order_archive\",{{\"sales_order_archive.warehouse\", \"Warehouse\"}, {\"sales_order_archive.debtor_master.price_code\", \"PriceCode\"}}),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Renamed Columns1\",{{\"itemprice\", type number}}),",
                 "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Changed Type\",\" \",\"\",Replacer.ReplaceText,{\"stockcode\"}),",
-                "    #\"Added Custom\" = Table.AddColumn(#\"Replaced Value1\", \"COMPKEY\", each [stockcode] & \"_\" & [Warehouse])",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Replaced Value1\", \"COMPKEY\", each [stockcode] & \"_\" & [Warehouse]),",
+                "    #\"Merged Queries1\" = Table.NestedJoin(#\"Added Custom\", {\"stockcode\"}, stock_master, {\"StockCode\"}, \"stock_master\", JoinKind.LeftOuter),",
+                "    #\"Expanded stock_master\" = Table.ExpandTableColumn(#\"Merged Queries1\", \"stock_master\", {\"UnitWeight\"}, {\"UnitWeight\"}),",
+                "    #\"Added Custom1\" = Table.AddColumn(#\"Expanded stock_master\", \"LineWeight\", each [UnitWeight]*[shippedqty]),",
+                "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Added Custom1\",\" \",\"\",Replacer.ReplaceText,{\"uom\"})",
                 "in",
-                "    #\"Added Custom\""
+                "    #\"Replaced Value4\""
               ],
               "type": "m"
             }
