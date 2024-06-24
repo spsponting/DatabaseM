@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"sales_order\",\"order_status\",\"sales_order_line\",\"stock_master\",\"sales_audit_trail\",\"sales_order_archive\",\"sales_order_line_archive\",\"debtor_master\",\"mailer_master\",\"stock_warehouse_detail\",\"stock_movements\",\"rep_master\",\"sales_order_delivery\",\"deb_pg_sales_history\",\"deb_top_customers\",\"TimeFix1\",\"TerritoryList\",\"rep_master (2)\",\"BDMORDERLINEARCHIVE (2)\",\"BDMMAILER\",\"BDMDEBT\",\"BDMINTREP\",\"BDM REP\",\"YearGoal\",\"Main Whs\",\"BDMDate\",\"BDMORDERARCHIVE\",\"BDMTerritory\",\"BDMORDERLINEARCHIVE\",\"BDM REP (2)\",\"WO Model Test\",\"Industry\",\"POStatus\",\"Branches\",\"Date\",\"CourierCutOffs\",\"AustralianData\",\"CodeMap\",\"RepGoal\",\"CourierCutOffs (2)\",\"Date5\",\"BRANCHETERRITORY\",\"GroupCode\",\"SupplierCountry\",\"PrintTimeProcesss\",\"DespatchTime\",\"WODays\",\"dollars_on_hand\",\"purchase_order\",\"WOFactory\",\"StockMeasures\",\"purchase_order_status_desc\",\"quote_conversion_weights\",\"WOWeightTesting\",\"bom_work_order\",\"stock_supplier\",\"QuoteValue\",\"POLinesOnOrderETCONLY\",\"QuoteLostItems\",\"QuoteLostData\",\"SalesSuccessfulItems\",\"LastOrderStock\",\"product data\",\"cre_master\",\"SalesData\",\"BDMACCFILTER\",\"MapDate\",\"sales_order_delivery_archive\",\"WFDStatus\",\"StatusTimes\",\"DespTime\",\"Currency\",\"Metalprices\",\"Currency (2)\",\"Metalprices (2)\",\"EastAPI\",\"MoMonth\",\"NiMonth\",\"WestAPI\",\"CuMonth\",\"SalesDataAPI\",\"sales_order (2)\",\"sales_order_line (2)\",\"Date (2)\",\"BDMORDERARCHIVE (2)\"]"
+        "value": "[\"sales_order\",\"order_status\",\"sales_order_line\",\"stock_master\",\"sales_audit_trail\",\"sales_order_archive\",\"sales_order_line_archive\",\"debtor_master\",\"mailer_master\",\"stock_warehouse_detail\",\"stock_movements\",\"rep_master\",\"sales_order_delivery\",\"deb_pg_sales_history\",\"deb_top_customers\",\"TimeFix1\",\"TerritoryList\",\"rep_master (2)\",\"BDMORDERLINEARCHIVE (2)\",\"BDMMAILER\",\"BDMDEBT\",\"BDMINTREP\",\"BDM REP\",\"YearGoal\",\"Main Whs\",\"BDMDate\",\"BDMORDERARCHIVE\",\"BDMTerritory\",\"BDMORDERLINEARCHIVE\",\"BDM REP (2)\",\"WO Model Test\",\"Industry\",\"POStatus\",\"Branches\",\"Date\",\"CourierCutOffs\",\"AustralianData\",\"CodeMap\",\"RepGoal\",\"CourierCutOffs (2)\",\"Date5\",\"BRANCHETERRITORY\",\"GroupCode\",\"SupplierCountry\",\"PrintTimeProcesss\",\"DespatchTime\",\"WODays\",\"dollars_on_hand\",\"purchase_order\",\"WOFactory\",\"StockMeasures\",\"purchase_order_status_desc\",\"quote_conversion_weights\",\"WOWeightTesting\",\"bom_work_order\",\"stock_supplier\",\"QuoteValue\",\"POLinesOnOrderETCONLY\",\"QuoteLostItems\",\"QuoteLostData\",\"SalesSuccessfulItems\",\"LastOrderStock\",\"product data\",\"cre_master\",\"SalesData\",\"BDMACCFILTER\",\"MapDate\",\"sales_order_delivery_archive\",\"WFDStatus\",\"StatusTimes\",\"DespTime\",\"Currency\",\"Metalprices\",\"Currency (2)\",\"Metalprices (2)\",\"EastAPI\",\"MoMonth\",\"NiMonth\",\"WestAPI\",\"CuMonth\",\"SalesDataAPI\",\"sales_order (2)\",\"sales_order_line (2)\",\"Date (2)\",\"BDMORDERARCHIVE (2)\",\"WOWEIGHTS\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -59550,6 +59550,14 @@
         "fromTable": "rep_master",
         "toColumn": "SalesRep",
         "toTable": "BDM REP"
+      },
+      {
+        "name": "07715806-4c77-4cf9-ac19-75301f0de9c7",
+        "fromColumn": "finishdate",
+        "fromTable": "WOWEIGHTS",
+        "joinOnDateBehavior": "datePartOnly",
+        "toColumn": "Date",
+        "toTable": "LocalDateTable_ffbcd13f-0b7a-4a27-a94a-ceecfd7693db"
       }
     ],
     "sourceQueryCulture": "en-AU",
@@ -63052,6 +63060,19 @@
             "lineageTag": "a1facd5d-2e38-4dac-90e8-3e10f471ca8a",
             "sourceColumn": "LineWeight",
             "summarizeBy": "sum"
+          },
+          {
+            "name": "Compkey.1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "41de9d9b-8974-401a-8ad9-ab340eb7d3f3",
+            "sourceColumn": "Compkey.1",
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "b78927cd-e835-4a92-8599-2ce182478626",
@@ -63113,9 +63134,10 @@
                 "    #\"Merged Queries1\" = Table.NestedJoin(#\"Added Custom\", {\"stockcode\"}, stock_master, {\"StockCode\"}, \"stock_master\", JoinKind.LeftOuter),",
                 "    #\"Expanded stock_master\" = Table.ExpandTableColumn(#\"Merged Queries1\", \"stock_master\", {\"UnitWeight\"}, {\"UnitWeight\"}),",
                 "    #\"Added Custom1\" = Table.AddColumn(#\"Expanded stock_master\", \"LineWeight\", each [UnitWeight]*[shippedqty]),",
-                "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Added Custom1\",\" \",\"\",Replacer.ReplaceText,{\"uom\"})",
+                "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Added Custom1\",\" \",\"\",Replacer.ReplaceText,{\"uom\"}),",
+                "    #\"Added Custom2\" = Table.AddColumn(#\"Replaced Value4\", \"Compkey.1\", each [ordernumber] & \"_\" & [stockcode])",
                 "in",
-                "    #\"Replaced Value4\""
+                "    #\"Added Custom2\""
               ],
               "type": "m"
             }
@@ -76863,6 +76885,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -77287,6 +77313,45 @@
             "lineageTag": "2266fc7f-9e60-44c1-9aa2-a27c02ab9f3e",
             "sourceColumn": "wocompletedqty",
             "summarizeBy": "sum"
+          },
+          {
+            "name": "StockGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "8457d147-c528-46b1-b207-7557e66ae162",
+            "sourceColumn": "StockGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ABCClass",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d79cc076-03e5-42fa-acdb-3deb2de67a86",
+            "sourceColumn": "ABCClass",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "FullStockDescription",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4a90b748-90c1-4633-8636-eaed3220feb9",
+            "sourceColumn": "FullStockDescription",
+            "summarizeBy": "none"
           }
         ],
         "excludeFromModelRefresh": true,
@@ -77326,7 +77391,7 @@
                 "    #\"Replaced Value\" = Table.ReplaceValue(#\"Replaced Value2\",\" \",\"\",Replacer.ReplaceText,{\"workorder\"}),",
                 "    // Joining with the stock_master table to enrich the dataset",
                 "    MergedQueries = Table.NestedJoin(#\"Replaced Value\", {\"StockCode\"}, stock_master, {\"StockCode\"}, \"stock_master\", JoinKind.LeftOuter),",
-                "    #\"Expanded stock_master\" = Table.ExpandTableColumn(MergedQueries, \"stock_master\", {\"StockCode\", \"UnitWeight\"}, {\"stock_master.stockcode\", \"stock_master.UnitWeight\"}),",
+                "    #\"Expanded stock_master\" = Table.ExpandTableColumn(MergedQueries, \"stock_master\", {\"StockCode\", \"StockGroup\", \"FullStockDescription\", \"ABCClass\", \"UnitWeight\"}, {\"stock_master.stockcode\", \"StockGroup\", \"FullStockDescription\", \"ABCClass\", \"stock_master.UnitWeight\"}),",
                 "    #\"Merged Queries\" = Table.NestedJoin(#\"Expanded stock_master\", {\"workorder\"}, #\"WO Model Test\", {\"workorder\"}, \"WO Model Test\", JoinKind.LeftOuter),",
                 "    #\"Expanded WO Model Test\" = Table.ExpandTableColumn(#\"Merged Queries\", \"WO Model Test\", {\"ordernumber\", \"warehouse_code\", \"workorder\", \"wostockcode\", \"wostatus\", \"wosalesrep\", \"finishdate\", \"startdate\", \"wocostper\", \"woorderqty\", \"wocompletedqty\"}, {\"ordernumber\", \"warehouse_code\", \"workorder.1\", \"wostockcode\", \"wostatus\", \"wosalesrep\", \"finishdate\", \"startdate\", \"wocostper\", \"woorderqty\", \"wocompletedqty\"})",
                 "in",
@@ -99503,6 +99568,653 @@
             }
           }
         ]
+      },
+      {
+        "name": "WOWEIGHTS",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "workorder",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "fbb63fbd-24ff-43d8-a2c2-a53e73240724",
+            "sourceColumn": "workorder",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StockCode",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "0942fb45-7bf1-4ba0-801c-9f9f0b5b48dc",
+            "sourceColumn": "StockCode",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "trn_date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "5db7e617-ba3b-40d7-819d-748a652ca8d3",
+            "sourceColumn": "trn_date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "trn_whse",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "2e2fab60-15c3-4ea1-8230-a92cc5254846",
+            "sourceColumn": "trn_whse",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "trn_qty",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "a83a68d5-d8c8-4f65-86ab-df1cd2b2fdb5",
+            "sourceColumn": "trn_qty",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "trn_cost",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "953b6777-605e-4ede-9700-b412f7e3f55d",
+            "sourceColumn": "trn_cost",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "trn_batch_ref",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "2079d266-8635-4abe-9e31-6b7e7c23814a",
+            "sourceColumn": "trn_batch_ref",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "stock_master.stockcode",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "dbada9b6-2f54-4bf6-8d55-ff42fb504cdb",
+            "sourceColumn": "stock_master.stockcode",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StockGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "b391007c-f849-4ac9-93df-176e83992bc2",
+            "sourceColumn": "StockGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "FullStockDescription",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "1117afc1-d3ae-487e-b24c-456aad74b05d",
+            "sourceColumn": "FullStockDescription",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ABCClass",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c87065ef-2945-4abc-ba8f-3d1ff8a18cae",
+            "sourceColumn": "ABCClass",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "stock_master.UnitWeight",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "997fd5f0-d1c5-4e02-afa3-8a7176835647",
+            "sourceColumn": "stock_master.UnitWeight",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ordernumber",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "a985461d-d6bc-4bbd-b7bb-79b4b796a1cc",
+            "sourceColumn": "ordernumber",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "warehouse_code",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "de8620eb-342d-4099-aa79-f29061bbf28c",
+            "sourceColumn": "warehouse_code",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "workorder.1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "5babae97-a4cf-4dbb-b5d7-f08e70247543",
+            "sourceColumn": "workorder.1",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "wostockcode",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "b417ed45-ba09-4d08-af01-c3389ed0f3f9",
+            "sourceColumn": "wostockcode",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "wostatus",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "ae981cad-2fda-40a1-8b29-e32a6f64ffa7",
+            "sourceColumn": "wostatus",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "wosalesrep",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "8a5804ae-4f82-457e-8727-2a5fa763eac4",
+            "sourceColumn": "wosalesrep",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "finishdate",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "b271dcd7-fa05-4c67-bb22-0d51ef73c2a2",
+            "sourceColumn": "finishdate",
+            "summarizeBy": "none",
+            "variations": [
+              {
+                "name": "Variation",
+                "defaultHierarchy": {
+                  "hierarchy": "Date Hierarchy",
+                  "table": "LocalDateTable_ffbcd13f-0b7a-4a27-a94a-ceecfd7693db"
+                },
+                "isDefault": true,
+                "relationship": "07715806-4c77-4cf9-ac19-75301f0de9c7"
+              }
+            ]
+          },
+          {
+            "name": "startdate",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d5c54b50-085b-4bf5-8a80-bff4e00260f5",
+            "sourceColumn": "startdate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "wocostper",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "dc8b6539-02c7-4e8a-a182-65443d07ce66",
+            "sourceColumn": "wocostper",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "woorderqty",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "5e5c98d8-5e5a-4e3f-9b0b-fc2f8bb39c1b",
+            "sourceColumn": "woorderqty",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "wocompletedqty",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "1484bc6b-5896-485c-9eb6-af82676fe576",
+            "sourceColumn": "wocompletedqty",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "WOWEIGHT",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "eb1b2293-128e-4b59-a8c5-0726c688e183",
+            "sourceColumn": "WOWEIGHT",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Compkey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "ba304eb3-9773-4918-b7d5-340984cdd4a6",
+            "sourceColumn": "Compkey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "lineamount",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "double",
+            "formatString": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+            "lineageTag": "7ec2fcda-3406-4e76-a7ce-b1a2752ebb77",
+            "sourceColumn": "lineamount",
+            "summarizeBy": "sum"
+          }
+        ],
+        "excludeFromModelRefresh": true,
+        "lineageTag": "56544ebc-132d-41c8-885f-898e62a24d13",
+        "partitions": [
+          {
+            "name": "WOWEIGHTS",
+            "mode": "import",
+            "queryGroup": "Warehouse",
+            "source": {
+              "expression": [
+                "let",
+                "    // Connect to the SQLite database and execute the optimized SQL query",
+                "    Source = Odbc.DataSource(\"database=d:\\mirror.db;dsn=SQLite3 Datasource\"),",
+                "    mailer_master_Query = Value.NativeQuery(Source, \"",
+                "            SELECT ",
+                "work_order,",
+                "comp_code,",
+                "trn_date,",
+                "trn_whse,",
+                "trn_qty,",
+                "trn_cost,",
+                "trn_batch_ref",
+                "            FROM",
+                "                bom_work_order_trans",
+                "",
+                "        \"",
+                "    ),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(mailer_master_Query,{{\"comp_code\", \"StockCode\"}, {\"work_order\", \"workorder\"}}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Renamed Columns\",\" \",\"\",Replacer.ReplaceText,{\"workorder\", \"StockCode\", \"trn_batch_ref\"}),",
+                "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"SO\",\"\",Replacer.ReplaceText,{\"trn_batch_ref\"}),",
+                "    // Joining with the stock_master table to enrich the dataset",
+                "    MergedQueries = Table.NestedJoin(#\"Replaced Value1\", {\"StockCode\"}, stock_master, {\"StockCode\"}, \"stock_master\", JoinKind.LeftOuter),",
+                "    #\"Expanded stock_master\" = Table.ExpandTableColumn(MergedQueries, \"stock_master\", {\"StockCode\", \"StockGroup\", \"FullStockDescription\", \"ABCClass\", \"UnitWeight\"}, {\"stock_master.stockcode\", \"StockGroup\", \"FullStockDescription\", \"ABCClass\", \"stock_master.UnitWeight\"}),",
+                "    #\"Merged Queries\" = Table.NestedJoin(#\"Expanded stock_master\", {\"workorder\"}, #\"WO Model Test\", {\"workorder\"}, \"WO Model Test\", JoinKind.LeftOuter),",
+                "    #\"Expanded WO Model Test\" = Table.ExpandTableColumn(#\"Merged Queries\", \"WO Model Test\", {\"ordernumber\", \"warehouse_code\", \"workorder\", \"wostockcode\", \"wostatus\", \"wosalesrep\", \"finishdate\", \"startdate\", \"wocostper\", \"woorderqty\", \"wocompletedqty\"}, {\"ordernumber\", \"warehouse_code\", \"workorder.1\", \"wostockcode\", \"wostatus\", \"wosalesrep\", \"finishdate\", \"startdate\", \"wocostper\", \"woorderqty\", \"wocompletedqty\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Expanded WO Model Test\", each ([StockCode] <> \"LABCUTLINB003\" and [StockCode] <> \"LABCUTLINB005\" and [StockCode] <> \"LABCUTLINB006\" and [StockCode] <> \"LABCUTLINB007\" and [StockCode] <> \"LABCUTLINB008\" and [StockCode] <> \"LABCUTLINB009\" and [StockCode] <> \"LABCUTLINB010\" and [StockCode] <> \"LABCUTLINB011\" and [StockCode] <> \"LABCUTLINB012\" and [StockCode] <> \"LABCUTLINB013\" and [StockCode] <> \"LABCUTLINB014\" and [StockCode] <> \"LABCUTLINB017\" and [StockCode] <> \"LABCUTLINB018\" and [StockCode] <> \"LABCUTLINB023\" and [StockCode] <> \"LABCUTLINB024\" and [StockCode] <> \"LABCUTLINB035\" and [StockCode] <> \"LABCUTLINB042\" and [StockCode] <> \"LABCUTLINB054\" and [StockCode] <> \"LABCUTLINB070\" and [StockCode] <> \"LABCUTLINF01\" and [StockCode] <> \"LABCUTLINF02\" and [StockCode] <> \"LABCUTLINF04\" and [StockCode] <> \"LABCUTLINF06\" and [StockCode] <> \"LABCUTLINF07\" and [StockCode] <> \"LABHSTAMPING\" and [StockCode] <> \"LABLHOUR\" and [StockCode] <> \"LABLSPEC\" and [StockCode] <> \"LABPHOUR\" and [StockCode] <> \"LABPOLLIN13\" and [StockCode] <> \"LABPOLLIN14\" and [StockCode] <> \"LABPSPEC\" and [StockCode] <> \"LABSETLINB009\" and [StockCode] <> \"LABSETLINB011\" and [StockCode] <> \"LABSETLINB012\" and [StockCode] <> \"LABSETLINB015\" and [StockCode] <> \"LABSETLINB016\" and [StockCode] <> \"LABSETLINB017\" and [StockCode] <> \"LABSETLINB018\" and [StockCode] <> \"LABSETLINB019\" and [StockCode] <> \"LABSETLINB020\" and [StockCode] <> \"LABSETLINB023\" and [StockCode] <> \"LABSETLINB026\" and [StockCode] <> \"LABSETLINB027\" and [StockCode] <> \"LABSETLINB030\" and [StockCode] <> \"LABSETLINB033\" and [StockCode] <> \"LABSETLINB037\" and [StockCode] <> \"LABSETLINB043\" and [StockCode] <> \"LABSETLINB054\" and [StockCode] <> \"LABSETLINB065\" and [StockCode] <> \"LABSETLINB085\" and [StockCode] <> \"LABSETLINB090\" and [StockCode] <> \"LABSETLINB100\" and [StockCode] <> \"LABSETLINF01\" and [StockCode] <> \"LABSETLINF07\" and [StockCode] <> \"LABSETLINF09\" and [StockCode] <> \"LABSETLINF11\" and [StockCode] <> \"LABSETLINF12\" and [StockCode] <> \"LABSETLINF15\")),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Filtered Rows\", \"WOWEIGHT\", each [trn_qty]*[stock_master.UnitWeight]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"WOWEIGHT\", type number}, {\"finishdate\", type date}}),",
+                "    #\"Added Custom1\" = Table.AddColumn(#\"Changed Type\", \"Compkey\", each [ordernumber] & \"_\" & [StockCode]),",
+                "    #\"Merged Queries1\" = Table.NestedJoin(#\"Added Custom1\", {\"Compkey\"}, sales_order_line_archive, {\"Compkey.1\"}, \"sales_order_line_archive\", JoinKind.LeftOuter),",
+                "    #\"Expanded sales_order_line_archive\" = Table.ExpandTableColumn(#\"Merged Queries1\", \"sales_order_line_archive\", {\"lineamount\"}, {\"lineamount\"}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Expanded sales_order_line_archive\",{{\"lineamount\", type number}})",
+                "in",
+                "    #\"Changed Type1\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "LocalDateTable_ffbcd13f-0b7a-4a27-a94a-ceecfd7693db",
+        "annotations": [
+          {
+            "name": "__PBI_LocalDateTable",
+            "value": "true"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "0a56f76b-13f4-4329-9b13-f8d8d7202ebe",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "isHidden": true,
+            "lineageTag": "f742af53-3d48-403d-8c1a-f98cff33de16",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "isHidden": true,
+            "lineageTag": "5c515923-4d98-4a3e-8106-cb9d6cb528bb",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Month",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "64589866-842d-4c10-b1a3-e63c380715fd",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "isHidden": true,
+            "lineageTag": "8234a708-8f2b-49f7-bfd4-8a42ee0b25e4",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Quarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Qtr \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "1d39d61a-be9c-4bd4-a219-af659419c67c",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Day",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "isHidden": true,
+            "lineageTag": "b550fb70-cf5b-4139-aad4-ff6adb646e7f",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Date Hierarchy",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Year",
+                "column": "Year",
+                "lineageTag": "1fdfa5dc-7861-4a81-95ae-a1aad11c6757",
+                "ordinal": 0
+              },
+              {
+                "name": "Quarter",
+                "column": "Quarter",
+                "lineageTag": "0703d5c1-f804-422a-94fc-015249938ab8",
+                "ordinal": 1
+              },
+              {
+                "name": "Month",
+                "column": "Month",
+                "lineageTag": "69eacaa9-35c4-4409-b930-b277d294404d",
+                "ordinal": 2
+              },
+              {
+                "name": "Day",
+                "column": "Day",
+                "lineageTag": "bf802bd2-54ff-4a9f-9cd7-766b852c8d5f",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "5f563f14-fea6-4dc8-aa7c-b19496f80cc4"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "4494e541-5c14-4f89-a86d-0258fb1700af",
+        "partitions": [
+          {
+            "name": "LocalDateTable_ffbcd13f-0b7a-4a27-a94a-ceecfd7693db",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(Year(MIN('WOWEIGHTS'[finishdate])), 1, 1), Date(Year(MAX('WOWEIGHTS'[finishdate])), 12, 31))",
+              "type": "calculated"
+            }
+          }
+        ],
+        "showAsVariationsOnly": true
       }
     ]
   }
